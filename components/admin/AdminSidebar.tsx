@@ -12,16 +12,18 @@ import {
   SidebarGroup,
   SidebarGroupLabel,
 } from "@/components/ui/sidebar";
-import { LayoutDashboard, User, FolderKanban, Briefcase, Wrench } from "lucide-react";
+import { LayoutDashboard, User, FolderKanban, Briefcase, Wrench, BarChart2, Settings } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const menuItems = [
   { label: "Dashboard", href: "/admin/dashboard", icon: LayoutDashboard, group: "Overview" },
+  { label: "Traffic", href: "/admin/traffic", icon: BarChart2, group: "Overview" },
   { label: "Profile", href: "/admin/profile", icon: User, group: "Content" },
   { label: "Projects", href: "/admin/projects", icon: FolderKanban, group: "Content" },
   { label: "Experience", href: "/admin/experience", icon: Briefcase, group: "Content" },
   { label: "Skills", href: "/admin/skills", icon: Wrench, group: "Content" },
+  { label: "Settings", href: "/admin/settings", icon: Settings, group: "System" },
 ];
 
 export function AdminSidebar() {
@@ -36,7 +38,7 @@ export function AdminSidebar() {
       <SidebarSeparator />
 
       <SidebarContent className="px-2 py-3">
-        {["Overview", "Content"].map((group) => (
+        {["Overview", "Content", "System"].map((group) => (
           <SidebarGroup key={group}>
             <SidebarGroupLabel>{group}</SidebarGroupLabel>
             <SidebarMenu>
