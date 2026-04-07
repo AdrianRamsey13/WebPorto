@@ -91,6 +91,18 @@ model Skill {
   updatedAt DateTime @updatedAt
 }
 
+model Message {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  subject   String?
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}
+
 model PageView {
   id        String   @id @default(cuid())
   path      String

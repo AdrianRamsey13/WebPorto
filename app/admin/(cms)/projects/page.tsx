@@ -2,7 +2,14 @@ import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Plus, Pencil } from "lucide-react";
 import { DeleteProjectButton } from "./DeleteProjectButton";
 
@@ -22,7 +29,9 @@ export default async function ProjectsPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold">Projects</h1>
-          <p className="text-muted-foreground text-sm mt-1">{projects.length} project</p>
+          <p className="text-muted-foreground text-sm mt-1">
+            {projects.length} project
+          </p>
         </div>
         <Button asChild>
           <Link href="/admin/projects/new">
@@ -55,21 +64,38 @@ export default async function ProjectsPage() {
                   <TableCell>
                     <div className="flex flex-wrap gap-1">
                       {project.tags.slice(0, 3).map((tag) => (
-                        <Badge key={tag} variant="secondary" className="text-xs">{tag}</Badge>
+                        <Badge
+                          key={tag}
+                          variant="secondary"
+                          className="text-xs"
+                        >
+                          {tag}
+                        </Badge>
                       ))}
                       {project.tags.length > 3 && (
-                        <Badge variant="outline" className="text-xs">+{project.tags.length - 3}</Badge>
+                        <Badge variant="outline" className="text-xs">
+                          +{project.tags.length - 3}
+                        </Badge>
                       )}
                     </div>
                   </TableCell>
                   <TableCell>
-                    <Badge variant={statusColor[project.status] as "default" | "secondary" | "outline"}>
+                    <Badge
+                      variant={
+                        statusColor[project.status] as
+                          | "default"
+                          | "secondary"
+                          | "outline"
+                      }
+                    >
                       {project.status}
                     </Badge>
                   </TableCell>
                   <TableCell>
                     {project.featured ? (
-                      <span className="text-primary text-sm font-medium">Ya</span>
+                      <span className="text-primary text-sm font-medium">
+                        Ya
+                      </span>
                     ) : (
                       <span className="text-muted-foreground text-sm">—</span>
                     )}

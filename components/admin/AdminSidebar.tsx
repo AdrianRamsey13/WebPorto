@@ -12,7 +12,7 @@ import {
   SidebarGroup,
   SidebarGroupLabel,
 } from "@/components/ui/sidebar";
-import { LayoutDashboard, User, FolderKanban, Briefcase, Wrench, BarChart2, Settings } from "lucide-react";
+import { LayoutDashboard, User, FolderKanban, Briefcase, Wrench, BarChart2, Settings, Mail } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -23,6 +23,7 @@ const menuItems = [
   { label: "Projects", href: "/admin/projects", icon: FolderKanban, group: "Content" },
   { label: "Experience", href: "/admin/experience", icon: Briefcase, group: "Content" },
   { label: "Skills", href: "/admin/skills", icon: Wrench, group: "Content" },
+  { label: "Messages", href: "/admin/messages", icon: Mail, group: "Content" },
   { label: "Settings", href: "/admin/settings", icon: Settings, group: "System" },
 ];
 

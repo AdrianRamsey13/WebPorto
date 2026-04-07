@@ -1,5 +1,10 @@
+"use client";
+
+import Link from "next/link";
+import { motion } from "framer-motion";
 import type { Project } from "@/lib/generated/prisma/client";
 import { SectionHeading } from "./AboutSection";
+import { StaggerContainer, StaggerItem } from "@/components/motion";
 
 export function ProjectsSection({ projects }: { projects: Project[] }) {
   return (
@@ -12,11 +17,13 @@ export function ProjectsSection({ projects }: { projects: Project[] }) {
             No projects added yet — manage them via the admin panel.
           </p>
         ) : (
-          <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <StaggerContainer className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {projects.map((project) => (
-              <ProjectCard key={project.id} project={project} />
+              <StaggerItem key={project.id}>
+                <ProjectCard project={project} />
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         )}
       </div>
     </section>
@@ -25,17 +32,26 @@ export function ProjectsSection({ projects }: { projects: Project[] }) {
 
 function ProjectCard({ project }: { project: Project }) {
   return (
-    <div className="group flex flex-col rounded-xl border border-border bg-card overflow-hidden hover:border-primary/50 transition-colors">
-      {/* Image placeholder */}
+    <motion.div
+      className="group flex flex-col rounded-xl border border-border bg-card overflow-hidden hover:border-primary/50 transition-colors relative h-full"
+      whileHover={{ y: -5, transition: { duration: 0.2 } }}
+    >
       <div className="h-44 bg-muted flex items-center justify-center overflow-hidden">
         {project.imageUrl ? (
-          <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover" />
+          <motion.img
+            src={project.imageUrl}
+            alt={project.title}
+            className="w-full h-full object-cover"
+            whileHover={{ scale: 1.05, transition: { duration: 0.4 } }}
+          />
         ) : (
           <span className="text-4xl text-muted-foreground/30">{"</>"}</span>
         )}
       </div>
 
       <div className="flex flex-col flex-1 p-5 space-y-3">
+        <Link href={`/projects/${project.id}`} className="absolute inset-0 z-0" aria-label={project.title} />
+
         <div className="flex items-start justify-between gap-2">
           <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
             {project.title}
@@ -61,19 +77,24 @@ function ProjectCard({ project }: { project: Project }) {
           </div>
         )}
 
-        <div className="flex items-center gap-3 pt-1">
+        <div className="flex items-center gap-3 pt-1 relative z-10">
+          <span className="text-xs font-medium text-primary">Lihat Detail →</span>
           {project.demoUrl && (
-            <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" className="text-xs font-medium text-primary hover:underline">
-              Live Demo →
+            <a href={project.demoUrl} target="_blank" rel="noopener noreferrer"
+              className="text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"
+              onClick={(e) => e.stopPropagation()}>
+              Live Demo
             </a>
           )}
           {project.repoUrl && (
-            <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" className="text-xs font-medium text-muted-foreground hover:text-foreground transition-colors">
-              Source Code
+            <a href={project.repoUrl} target="_blank" rel="noopener noreferrer"
+              className="text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"
+              onClick={(e) => e.stopPropagation()}>
+              Repo
             </a>
           )}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

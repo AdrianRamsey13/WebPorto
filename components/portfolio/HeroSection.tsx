@@ -1,3 +1,6 @@
+"use client";
+
+import { motion } from "framer-motion";
 import type { Profile } from "@/lib/generated/prisma/client";
 
 const FALLBACK = {
@@ -16,62 +19,99 @@ export function HeroSection({ profile }: { profile: Profile | null }) {
       id="hero"
       className="min-h-screen flex flex-col items-center justify-center px-6 pt-16 relative overflow-hidden"
     >
-      {/* Background gradient blob */}
+      {/* Background gradient blob — animasi float */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-primary/10 blur-3xl" />
+        <motion.div
+          className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-primary/10 blur-3xl"
+          animate={{ scale: [1, 1.1, 1], opacity: [0.4, 0.6, 0.4] }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        />
       </div>
 
       <div className="max-w-3xl mx-auto text-center space-y-6">
-        <p className="text-sm font-medium tracking-widest text-primary uppercase">
+        <motion.p
+          className="text-sm font-medium tracking-widest text-primary uppercase"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+        >
           Hello, I&apos;m
-        </p>
+        </motion.p>
 
-        <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-foreground">
+        <motion.h1
+          className="text-5xl md:text-7xl font-bold tracking-tight text-foreground"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2, ease: [0.21, 0.47, 0.32, 0.98] }}
+        >
           {name}
-        </h1>
+        </motion.h1>
 
-        <p className="text-xl md:text-2xl text-muted-foreground font-light">
+        <motion.p
+          className="text-xl md:text-2xl text-muted-foreground font-light"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.35 }}
+        >
           {title}
-        </p>
+        </motion.p>
 
-        <p className="text-base text-muted-foreground max-w-xl mx-auto leading-relaxed">
+        <motion.p
+          className="text-base text-muted-foreground max-w-xl mx-auto leading-relaxed"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.45 }}
+        >
           {bio}
-        </p>
+        </motion.p>
 
-        <div className="flex items-center justify-center gap-4 pt-2">
-          <a
-            href="#projects"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity"
-          >
+        <motion.div
+          className="flex items-center justify-center gap-4 pt-2"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.55 }}
+        >
+          <a href="#projects"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity">
             View Projects
           </a>
-          <a
-            href="#contact"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground text-sm font-medium hover:bg-accent transition-colors"
-          >
+          <a href="#contact"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground text-sm font-medium hover:bg-accent transition-colors">
             Contact Me
           </a>
-        </div>
+        </motion.div>
 
-        {/* Social links */}
-        <div className="flex items-center justify-center gap-4 pt-2">
+        <motion.div
+          className="flex items-center justify-center gap-4 pt-2"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.65 }}
+        >
           {profile?.github && (
-            <a href={profile.github} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors" aria-label="GitHub">
+            <a href={profile.github} target="_blank" rel="noopener noreferrer"
+              className="text-muted-foreground hover:text-foreground transition-colors" aria-label="GitHub">
               <GitHubIcon />
             </a>
           )}
           {profile?.linkedin && (
-            <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors" aria-label="LinkedIn">
+            <a href={profile.linkedin} target="_blank" rel="noopener noreferrer"
+              className="text-muted-foreground hover:text-foreground transition-colors" aria-label="LinkedIn">
               <LinkedInIcon />
             </a>
           )}
-        </div>
+        </motion.div>
       </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce text-muted-foreground">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m6 9 6 6 6-6" /></svg>
-      </div>
+      <motion.div
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-muted-foreground"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1, y: [0, 6, 0] }}
+        transition={{ opacity: { delay: 1, duration: 0.5 }, y: { delay: 1, duration: 1.5, repeat: Infinity } }}
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="m6 9 6 6 6-6" />
+        </svg>
+      </motion.div>
     </section>
   );
 }

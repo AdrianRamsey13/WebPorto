@@ -1,3 +1,6 @@
+"use client";
+
+import { motion } from "framer-motion";
 import type { Experience } from "@/lib/generated/prisma/client";
 import { SectionHeading } from "./AboutSection";
 
@@ -17,19 +20,29 @@ export function ExperienceSection({ experiences }: { experiences: Experience[] }
           </p>
         ) : (
           <div className="mt-12 relative">
-            {/* Timeline line */}
             <div className="absolute left-4 top-0 bottom-0 w-px bg-border md:left-1/2" />
 
             <div className="space-y-8">
               {experiences.map((exp, i) => (
-                <div key={exp.id} className={`relative flex gap-8 md:gap-0 ${i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"}`}>
+                <motion.div
+                  key={exp.id}
+                  className={`relative flex gap-8 md:gap-0 ${i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"}`}
+                  initial={{ opacity: 0, x: i % 2 === 0 ? -30 : 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ duration: 0.5, ease: [0.21, 0.47, 0.32, 0.98] }}
+                >
                   {/* Dot */}
-                  <div className="absolute left-4 -translate-x-1/2 w-3 h-3 rounded-full bg-primary border-2 border-background z-10 md:left-1/2 mt-5" />
+                  <motion.div
+                    className="absolute left-4 -translate-x-1/2 w-3 h-3 rounded-full bg-primary border-2 border-background z-10 md:left-1/2 mt-5"
+                    initial={{ scale: 0 }}
+                    whileInView={{ scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.3, delay: 0.2 }}
+                  />
 
-                  {/* Spacer for alternating */}
                   <div className="hidden md:block md:w-1/2" />
 
-                  {/* Card */}
                   <div className={`ml-10 md:ml-0 md:w-1/2 ${i % 2 === 0 ? "md:pl-8" : "md:pr-8"}`}>
                     <div className="p-5 rounded-xl border border-border bg-card hover:border-primary/40 transition-colors">
                       <div className="flex items-start justify-between gap-2 mb-1">
@@ -48,7 +61,7 @@ export function ExperienceSection({ experiences }: { experiences: Experience[] }
                       <p className="text-sm text-muted-foreground leading-relaxed">{exp.description}</p>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
