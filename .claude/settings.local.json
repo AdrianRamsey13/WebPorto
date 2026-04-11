@@ -3,7 +3,8 @@
     "allow": [
       "Bash(npm install:*)",
       "Bash(npx shadcn@latest init --defaults)",
-      "Bash(npx prisma:*)"
+      "Bash(npx prisma:*)",
+      "Bash(ls c:/WebProject/WebPorto/.env*)"
     ]
   }
 }
